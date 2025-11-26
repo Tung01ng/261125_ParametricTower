@@ -60,16 +60,20 @@ function bindInput(key, config) {
   });
 }
 
+function addSeparator() {
+  pane.addBlade({ view: "separator" });
+}
+
 bindInput("floors", { min: 5, max: 80, step: 1, label: "Floor Count" });
 bindInput("floorHeight", { min: 0.8, max: 4, step: 0.1, label: "Floor Height" });
-pane.addSeparator();
+addSeparator();
 bindInput("scaleMin", { min: 1, max: 15, step: 0.1, label: "Scale Min" });
 bindInput("scaleMax", { min: 1, max: 20, step: 0.1, label: "Scale Max" });
-pane.addSeparator();
+addSeparator();
 bindInput("twistMin", { min: -180, max: 0, step: 1, label: "Twist Min" });
 bindInput("twistMax", { min: 0, max: 360, step: 1, label: "Twist Max" });
 bindInput("rotation", { min: -180, max: 180, step: 1, label: "Tower Rotation" });
-pane.addSeparator();
+addSeparator();
 bindInput("colorBottom", { view: "color", label: "Color Bottom" });
 bindInput("colorTop", { view: "color", label: "Color Top" });
 
