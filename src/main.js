@@ -40,6 +40,8 @@ scene.add(grid);
 const params = {
   floors: 32,
   floorHeight: 1.8,
+  floorGap: 0.4,
+  baseSides: 6,
   scaleMin: 4,
   scaleMax: 12,
   twistMin: -45,
@@ -66,6 +68,8 @@ function addSeparator() {
 
 bindInput("floors", { min: 5, max: 80, step: 1, label: "Floor Count" });
 bindInput("floorHeight", { min: 0.8, max: 4, step: 0.1, label: "Floor Height" });
+bindInput("floorGap", { min: 0, max: 3, step: 0.1, label: "Floor Gap" });
+bindInput("baseSides", { min: 4, max: 6, step: 1, label: "Base Sides" });
 addSeparator();
 bindInput("scaleMin", { min: 1, max: 15, step: 0.1, label: "Scale Min" });
 bindInput("scaleMax", { min: 1, max: 20, step: 0.1, label: "Scale Max" });
@@ -90,6 +94,8 @@ function rebuildTower() {
 
   const floors = Math.max(1, Math.floor(params.floors));
   const height = Math.max(0.1, params.floorHeight);
+  const gap = Math.max(0, params.floorGap);
+  const baseSides = THREE.MathUtils.clamp(Math.floor(params.baseSides), 4, 24);
   const scaleMin = Math.max(0.2, Math.min(params.scaleMin, params.scaleMax));
   const scaleMax = Math.max(scaleMin, params.scaleMax);
   const twistMin = THREE.MathUtils.degToRad(params.twistMin);
@@ -106,7 +112,7 @@ function rebuildTower() {
     const twist = lerp(twistMin, twistMax, t);
     const color = bottomColor.clone().lerp(topColor, t);
 
-    const geometry = new THREE.CylinderGeometry(1, 1, 1, 64, 1, false);
+    const geometry = new THREE.CylinderGeometry(1, 1, 1, baseSides, 1, false);
     const material = new THREE.MeshStandardMaterial({
       color,
       roughness: 0.45,
@@ -116,7 +122,7 @@ function rebuildTower() {
 
     slab.scale.set(radius, height, radius);
     slab.rotation.y = twist;
-    slab.position.y = i * height + height * 0.5;
+    slab.position.y = i * (height + gap) + height * 0.5;
 
     towerGroup.add(slab);
   }

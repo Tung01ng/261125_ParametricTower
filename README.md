@@ -4,7 +4,9 @@ Parametric tower generator that stacks procedural floor slabs in the browser, le
 
 ## Features
 - Interactive sliders for floor count, per-floor height, twist, tower rotation, and radial scale with independent minimum/maximum ranges.
+- Base polygon control (4-6 sides) to change the footprint from square to hexagonal forms.
 - Smooth color gradient between customizable bottom/top colors so the tower transitions along its height.
+- Adjustable gap between floors for more breathing room or dense stacking.
 - Orbit camera controls, soft lighting, and grid reference to inspect the form from any angle.
 - Instant rebuild for every parameter change, enabling rapid iteration and form finding.
 
@@ -14,8 +16,10 @@ Parametric tower generator that stacks procedural floor slabs in the browser, le
 3. Open the printed localhost URL (default http://localhost:5173) in a modern browser.
 
 ## Controls
-- **Floor Count**: Number of stacked slabs (5–80).
+- **Floor Count**: Number of stacked slabs (5-80).
 - **Floor Height**: Vertical height of each slab.
+- **Floor Gap**: Extra vertical spacing inserted between consecutive slabs.
+- **Base Sides**: Select 4-6 edges for the footprint polygon.
 - **Scale Min/Max**: Minimum and maximum slab radii to create tapering or bulging massing.
 - **Twist Min/Max**: Degrees of rotation applied from base to top to achieve gradual twisting.
 - **Tower Rotation**: Spins the entire tower for quick composition changes.
