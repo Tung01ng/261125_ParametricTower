@@ -49,32 +49,29 @@ const params = {
   colorTop: "#fca311",
 };
 
-const pane = new Pane({ title: "Tower Controls" });
-pane.addInput(params, "floors", { min: 5, max: 80, step: 1, label: "Floor Count" });
-pane.addInput(params, "floorHeight", {
-  min: 0.8,
-  max: 4,
-  step: 0.1,
-  label: "Floor Height",
-});
-pane.addSeparator();
-pane.addInput(params, "scaleMin", { min: 1, max: 15, step: 0.1, label: "Scale Min" });
-pane.addInput(params, "scaleMax", { min: 1, max: 20, step: 0.1, label: "Scale Max" });
-pane.addSeparator();
-pane.addInput(params, "twistMin", { min: -180, max: 0, step: 1, label: "Twist Min" });
-pane.addInput(params, "twistMax", { min: 0, max: 360, step: 1, label: "Twist Max" });
-pane.addInput(params, "rotation", { min: -180, max: 180, step: 1, label: "Tower Rotation" });
-pane.addSeparator();
-pane.addInput(params, "colorBottom", {
-  view: "color",
-  label: "Color Bottom",
-});
-pane.addInput(params, "colorTop", {
-  view: "color",
-  label: "Color Top",
-});
+const pane = new Pane({ title: "Tower Controls", expanded: true });
 
-pane.on("change", rebuildTower);
+function bindInput(key, config) {
+  const binding = pane.addBinding(params, key, config);
+  binding.on("change", (ev) => {
+    if (ev.last) {
+      rebuildTower();
+    }
+  });
+}
+
+bindInput("floors", { min: 5, max: 80, step: 1, label: "Floor Count" });
+bindInput("floorHeight", { min: 0.8, max: 4, step: 0.1, label: "Floor Height" });
+pane.addSeparator();
+bindInput("scaleMin", { min: 1, max: 15, step: 0.1, label: "Scale Min" });
+bindInput("scaleMax", { min: 1, max: 20, step: 0.1, label: "Scale Max" });
+pane.addSeparator();
+bindInput("twistMin", { min: -180, max: 0, step: 1, label: "Twist Min" });
+bindInput("twistMax", { min: 0, max: 360, step: 1, label: "Twist Max" });
+bindInput("rotation", { min: -180, max: 180, step: 1, label: "Tower Rotation" });
+pane.addSeparator();
+bindInput("colorBottom", { view: "color", label: "Color Bottom" });
+bindInput("colorTop", { view: "color", label: "Color Top" });
 
 function lerp(a, b, t) {
   return a + (b - a) * t;
